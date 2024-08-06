@@ -1,0 +1,27 @@
+---
+- name: (DEBIAN) Include variables
+  ansible.builtin.include_vars:
+    file: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: (REDHAT) Include variables
+  ansible.builtin.include_vars:
+    file: redhat.yml
+  when: ansible_os_family in ['Redhat', 'Rocky']
+
+- name: Create NFS directory
+  ansible.builtin.file:
+    path: "{{ nfs_dir }}"
+    state: directory
+    recurse: true
+    mode: '0777'
+    owner: root
+    group: root
+  notify: Restart-Enable NFS
+
+- name: Export NFS directory
+  ansible.builtin.lineinfile:
+    path: /etc/exports
+    state: present
+    line: "{{ nfs_dir }} {{ nfs_networks }}"
+  notify: Restart-Enable NFS

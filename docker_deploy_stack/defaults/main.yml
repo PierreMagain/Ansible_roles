@@ -1,0 +1,5 @@
+---
+main_user: 'pierrem'
+main_group: 'pierrem'
+stack_name: 'mystack'
+stack_path: '/opt/docker-stack.yml'

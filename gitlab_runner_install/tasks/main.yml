@@ -1,0 +1,8 @@
+---
+- name: (DEBIAN) family task
+  import_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: (REDHAT) family task
+  import_tasks: redhat.yml
+  when: ansible_os_family in ['Redhat', 'Rocky']

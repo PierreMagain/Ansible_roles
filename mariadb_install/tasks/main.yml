@@ -1,0 +1,26 @@
+---
+# Load Debian specific variables
+- name: (DEBIAN) load tasks
+  import_tasks: debian.yml
+  when: ansible_facts['os_family'] == "Debian"
+
+# Load RedHat specific variables
+- name: (REDHAT) load tasks
+  import_tasks: redhat.yml
+  when: ansible_facts['os_family'] in ['RedHat', 'Rocky']
+
+# Common tasks
+- name: Listen on all interfaces
+  ansible.builtin.lineinfile:
+    path: "{{ mariadb_config }}"
+    regex: "^bind-address"
+    line: 'bind-address = 0.0.0.0'
+  notify: Restart-Enable MariaDB
+
+- name: Open MariaDB port
+  ansible.posix.firewalld:
+    service: mysql
+    state: enabled
+    immediate: true
+    permanent: true
+...

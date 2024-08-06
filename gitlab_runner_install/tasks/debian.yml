@@ -1,0 +1,22 @@
+---
+- name: (DEBIAN) Install required packages
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+      - wget
+      - git
+      - lsb-release
+    update_cache: true
+    state: present
+
+- name: (DEBIAN) Install Gitlab-Runner repo
+  ansible.builtin.shell:
+    cmd: curl -L "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh" | bash
+
+- name: (DEBIAN) Install Gitlab-Runner
+  ansible.builtin.apt:
+    name: 
+      - gitlab-runner
+    update_cache: true
+    state: present

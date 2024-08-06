@@ -1,0 +1,9 @@
+---
+server_name: wordpress1.pierrem.lan
+database_name: wordpress
+database_user: wpressadmin
+database_host: localhost
+# database_password: !vault 
+wordpress_url: 'https://wordpress.org/latest.tar.gz'
+wordpress_hash: 'sha1:b70701b5426891ca1f8ff9b3cd96653e2b60d7e9'
+wordpress_path: '/var/www/wordpress-6.5.2.tar.gz'

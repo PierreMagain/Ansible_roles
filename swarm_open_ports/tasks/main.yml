@@ -1,0 +1,7 @@
+---
+- name: Open Swarm ports
+  ansible.posix.firewalld:
+    service: docker-swarm
+    state: enabled
+    immediate: true
+    permanent: true
